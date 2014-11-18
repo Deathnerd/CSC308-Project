@@ -22,6 +22,7 @@
 		3FF8EEA31A1BB63000DA3A3D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3FF8EEA11A1BB63000DA3A3D /* InfoPlist.strings */; };
 		3FF8EEA51A1BB63000DA3A3D /* ProjectTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FF8EEA41A1BB63000DA3A3D /* ProjectTests.m */; };
 		3FF8EEAF1A1BC2F900DA3A3D /* Db.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 3FF8EEAE1A1BC2F900DA3A3D /* Db.sqlite */; };
+		3FF8EEB21A1BC5C400DA3A3D /* LocationsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FF8EEB11A1BC5C400DA3A3D /* LocationsListViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,8 @@
 		3FF8EEA21A1BB63000DA3A3D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		3FF8EEA41A1BB63000DA3A3D /* ProjectTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProjectTests.m; sourceTree = "<group>"; };
 		3FF8EEAE1A1BC2F900DA3A3D /* Db.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = Db.sqlite; sourceTree = "<group>"; };
+		3FF8EEB01A1BC5C400DA3A3D /* LocationsListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationsListViewController.h; sourceTree = "<group>"; };
+		3FF8EEB11A1BC5C400DA3A3D /* LocationsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationsListViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,6 +121,8 @@
 				3FF8EE891A1BB63000DA3A3D /* AppDelegate.m */,
 				3FF8EEAE1A1BC2F900DA3A3D /* Db.sqlite */,
 				3FF8EE8B1A1BB63000DA3A3D /* Main.storyboard */,
+				3FF8EEB01A1BC5C400DA3A3D /* LocationsListViewController.h */,
+				3FF8EEB11A1BC5C400DA3A3D /* LocationsListViewController.m */,
 				3FF8EE8E1A1BB63000DA3A3D /* ViewController.h */,
 				3FF8EE8F1A1BB63000DA3A3D /* ViewController.m */,
 				3FF8EE911A1BB63000DA3A3D /* Images.xcassets */,
@@ -256,6 +261,7 @@
 				3FF8EE901A1BB63000DA3A3D /* ViewController.m in Sources */,
 				3FF8EE8A1A1BB63000DA3A3D /* AppDelegate.m in Sources */,
 				3FF8EE861A1BB63000DA3A3D /* main.m in Sources */,
+				3FF8EEB21A1BC5C400DA3A3D /* LocationsListViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
