@@ -9,7 +9,9 @@
 #import "BuildingInfoViewController.h"
 
 @interface BuildingInfoViewController ()
-
+// Store the lat/long in here for the location of the currently selected building
+// - Wes
+@property NSDictionary *currentlySelectedLocation;
 @end
 
 @implementation BuildingInfoViewController
@@ -29,6 +31,16 @@
     // Do any additional setup after loading the view.
 }
 
+/*
+ * This method is what we should use to do things when the view is shown (duh). 
+ * This'll take care of almost all of our actions such as setting the map coordinates and laying down a pin, etc. 
+ * See more here: http://www.raywenderlich.com/21365/introduction-to-mapkit-in-ios-6-tutorial
+ * - Wes
+ */
+- (void)viewDidAppear:(BOOL)animated{
+    
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -46,4 +58,11 @@
 }
 */
 
+/*
+ * Should be pretty self-explanatory. Handle the logic to open the current location in the Maps app. 
+ * I'd love to use Google Maps, but we'll have to deal with our user being led out into the woods in Maine.
+ * - Wes
+ */
+- (IBAction)openInMapsButton:(id)sender {
+}
 @end

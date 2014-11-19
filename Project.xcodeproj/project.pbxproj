@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3F50B2211A1D287900954D3F /* BuildingInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F50B2201A1D287900954D3F /* BuildingInfoViewController.m */; };
+		3F50B2231A1D2AA400954D3F /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F50B2221A1D2AA400954D3F /* MapKit.framework */; };
 		3FF8EE7A1A1BB63000DA3A3D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FF8EE791A1BB63000DA3A3D /* Foundation.framework */; };
 		3FF8EE7C1A1BB63000DA3A3D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FF8EE7B1A1BB63000DA3A3D /* CoreGraphics.framework */; };
 		3FF8EE7E1A1BB63000DA3A3D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FF8EE7D1A1BB63000DA3A3D /* UIKit.framework */; };
@@ -36,6 +38,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3F50B21F1A1D287900954D3F /* BuildingInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuildingInfoViewController.h; sourceTree = "<group>"; };
+		3F50B2201A1D287900954D3F /* BuildingInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BuildingInfoViewController.m; sourceTree = "<group>"; };
+		3F50B2221A1D2AA400954D3F /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		3FF8EE761A1BB63000DA3A3D /* Project.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Project.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3FF8EE791A1BB63000DA3A3D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		3FF8EE7B1A1BB63000DA3A3D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -65,6 +70,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3F50B2231A1D2AA400954D3F /* MapKit.framework in Frameworks */,
 				3FF8EE7C1A1BB63000DA3A3D /* CoreGraphics.framework in Frameworks */,
 				3FF8EE7E1A1BB63000DA3A3D /* UIKit.framework in Frameworks */,
 				3FF8EE7A1A1BB63000DA3A3D /* Foundation.framework in Frameworks */,
@@ -106,6 +112,7 @@
 		3FF8EE781A1BB63000DA3A3D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3F50B2221A1D2AA400954D3F /* MapKit.framework */,
 				3FF8EE791A1BB63000DA3A3D /* Foundation.framework */,
 				3FF8EE7B1A1BB63000DA3A3D /* CoreGraphics.framework */,
 				3FF8EE7D1A1BB63000DA3A3D /* UIKit.framework */,
@@ -121,6 +128,8 @@
 				3FF8EE891A1BB63000DA3A3D /* AppDelegate.m */,
 				3FF8EEAE1A1BC2F900DA3A3D /* Db.sqlite */,
 				3FF8EE8B1A1BB63000DA3A3D /* Main.storyboard */,
+				3F50B21F1A1D287900954D3F /* BuildingInfoViewController.h */,
+				3F50B2201A1D287900954D3F /* BuildingInfoViewController.m */,
 				3FF8EEB01A1BC5C400DA3A3D /* LocationsListViewController.h */,
 				3FF8EEB11A1BC5C400DA3A3D /* LocationsListViewController.m */,
 				3FF8EE8E1A1BB63000DA3A3D /* ViewController.h */,
@@ -260,6 +269,7 @@
 			files = (
 				3FF8EE901A1BB63000DA3A3D /* ViewController.m in Sources */,
 				3FF8EE8A1A1BB63000DA3A3D /* AppDelegate.m in Sources */,
+				3F50B2211A1D287900954D3F /* BuildingInfoViewController.m in Sources */,
 				3FF8EE861A1BB63000DA3A3D /* main.m in Sources */,
 				3FF8EEB21A1BC5C400DA3A3D /* LocationsListViewController.m in Sources */,
 			);
@@ -466,6 +476,7 @@
 				3FF8EEAA1A1BB63000DA3A3D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		3FF8EEAB1A1BB63000DA3A3D /* Build configuration list for PBXNativeTarget "ProjectTests" */ = {
 			isa = XCConfigurationList;
@@ -474,6 +485,7 @@
 				3FF8EEAD1A1BB63000DA3A3D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
