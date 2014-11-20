@@ -11,7 +11,7 @@
 @interface BuildingInfoViewController ()
 // Store the lat/long in here for the location of the currently selected building
 // - Wes
-@property NSDictionary *currentlySelectedLocation;
+@property NSDictionary *currentData;
 @end
 
 @implementation BuildingInfoViewController
@@ -29,11 +29,18 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    self.currentData = @{
+                         @"longitude": @-111.5955,
+                         @"latitude": @33.225488,
+                         @"name": @"Denny's"
+                         };
 }
 
 /*
  * This method is what we should use to do things when the view is shown (duh). 
- * This'll take care of almost all of our actions such as setting the map coordinates and laying down a pin, etc. 
+ * This'll take care of almost all of our actions such as setting the map coordinates and laying down a pin, etc.
+ * Also remember to set the header text to the name of the location
  * See more here: http://www.raywenderlich.com/21365/introduction-to-mapkit-in-ios-6-tutorial
  * - Wes
  */
@@ -64,5 +71,16 @@
  * - Wes
  */
 - (IBAction)openInMapsButton:(id)sender {
+    
+    CLLocationCoordinate2D location = CLLocationCoordinate2DMake(
+                                                                 [[self.currentData objectForKey:@"longitude"] doubleValue],
+                                                                 [[self.currentData objectForKey:@"latitude"] doubleValue]
+                                                                 );
+    
+    MKPlacemark *placemark = [[MKPlacemark alloc] initWithCoordinate:location addressDictionary:nil];
+    MKMapItem *item = [[MKMapItem alloc] initWithPlacemark:placemark];
+    item.name = [self.currentData objectForKey:@"name"];
+    [item openInMapsWithLaunchOptions:nil];
+    
 }
 @end
