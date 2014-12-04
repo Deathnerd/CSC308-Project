@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3F2F39641A30D363001BE464 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F2F39631A30D363001BE464 /* libsqlite3.dylib */; };
+		3F2F39671A30D397001BE464 /* DbManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F2F39661A30D397001BE464 /* DbManager.m */; };
+		3F2F39691A30DD05001BE464 /* Db.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 3F2F39681A30DD05001BE464 /* Db.sqlite */; };
 		3F50B2211A1D287900954D3F /* BuildingInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F50B2201A1D287900954D3F /* BuildingInfoViewController.m */; };
 		3F50B2231A1D2AA400954D3F /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F50B2221A1D2AA400954D3F /* MapKit.framework */; };
 		3FF8EE7A1A1BB63000DA3A3D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FF8EE791A1BB63000DA3A3D /* Foundation.framework */; };
@@ -23,7 +26,6 @@
 		3FF8EE9B1A1BB63000DA3A3D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FF8EE7D1A1BB63000DA3A3D /* UIKit.framework */; };
 		3FF8EEA31A1BB63000DA3A3D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3FF8EEA11A1BB63000DA3A3D /* InfoPlist.strings */; };
 		3FF8EEA51A1BB63000DA3A3D /* ProjectTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FF8EEA41A1BB63000DA3A3D /* ProjectTests.m */; };
-		3FF8EEAF1A1BC2F900DA3A3D /* Db.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 3FF8EEAE1A1BC2F900DA3A3D /* Db.sqlite */; };
 		3FF8EEB21A1BC5C400DA3A3D /* LocationsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FF8EEB11A1BC5C400DA3A3D /* LocationsListViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -38,6 +40,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3F2F39631A30D363001BE464 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		3F2F39651A30D397001BE464 /* DbManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DbManager.h; sourceTree = "<group>"; };
+		3F2F39661A30D397001BE464 /* DbManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DbManager.m; sourceTree = "<group>"; };
+		3F2F39681A30DD05001BE464 /* Db.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = Db.sqlite; sourceTree = "<group>"; };
 		3F50B21F1A1D287900954D3F /* BuildingInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuildingInfoViewController.h; sourceTree = "<group>"; };
 		3F50B2201A1D287900954D3F /* BuildingInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BuildingInfoViewController.m; sourceTree = "<group>"; };
 		3F50B2221A1D2AA400954D3F /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
@@ -60,7 +66,6 @@
 		3FF8EEA01A1BB63000DA3A3D /* ProjectTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ProjectTests-Info.plist"; sourceTree = "<group>"; };
 		3FF8EEA21A1BB63000DA3A3D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		3FF8EEA41A1BB63000DA3A3D /* ProjectTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProjectTests.m; sourceTree = "<group>"; };
-		3FF8EEAE1A1BC2F900DA3A3D /* Db.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = Db.sqlite; sourceTree = "<group>"; };
 		3FF8EEB01A1BC5C400DA3A3D /* LocationsListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationsListViewController.h; sourceTree = "<group>"; };
 		3FF8EEB11A1BC5C400DA3A3D /* LocationsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationsListViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -70,6 +75,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3F2F39641A30D363001BE464 /* libsqlite3.dylib in Frameworks */,
 				3F50B2231A1D2AA400954D3F /* MapKit.framework in Frameworks */,
 				3FF8EE7C1A1BB63000DA3A3D /* CoreGraphics.framework in Frameworks */,
 				3FF8EE7E1A1BB63000DA3A3D /* UIKit.framework in Frameworks */,
@@ -112,6 +118,7 @@
 		3FF8EE781A1BB63000DA3A3D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3F2F39631A30D363001BE464 /* libsqlite3.dylib */,
 				3F50B2221A1D2AA400954D3F /* MapKit.framework */,
 				3FF8EE791A1BB63000DA3A3D /* Foundation.framework */,
 				3FF8EE7B1A1BB63000DA3A3D /* CoreGraphics.framework */,
@@ -124,9 +131,11 @@
 		3FF8EE7F1A1BB63000DA3A3D /* Project */ = {
 			isa = PBXGroup;
 			children = (
+				3F2F39651A30D397001BE464 /* DbManager.h */,
+				3F2F39661A30D397001BE464 /* DbManager.m */,
 				3FF8EE881A1BB63000DA3A3D /* AppDelegate.h */,
 				3FF8EE891A1BB63000DA3A3D /* AppDelegate.m */,
-				3FF8EEAE1A1BC2F900DA3A3D /* Db.sqlite */,
+				3F2F39681A30DD05001BE464 /* Db.sqlite */,
 				3FF8EE8B1A1BB63000DA3A3D /* Main.storyboard */,
 				3F50B21F1A1D287900954D3F /* BuildingInfoViewController.h */,
 				3F50B2201A1D287900954D3F /* BuildingInfoViewController.m */,
@@ -248,7 +257,7 @@
 				3FF8EE921A1BB63000DA3A3D /* Images.xcassets in Resources */,
 				3FF8EE841A1BB63000DA3A3D /* InfoPlist.strings in Resources */,
 				3FF8EE8D1A1BB63000DA3A3D /* Main.storyboard in Resources */,
-				3FF8EEAF1A1BC2F900DA3A3D /* Db.sqlite in Resources */,
+				3F2F39691A30DD05001BE464 /* Db.sqlite in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -268,6 +277,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3FF8EE901A1BB63000DA3A3D /* ViewController.m in Sources */,
+				3F2F39671A30D397001BE464 /* DbManager.m in Sources */,
 				3FF8EE8A1A1BB63000DA3A3D /* AppDelegate.m in Sources */,
 				3F50B2211A1D287900954D3F /* BuildingInfoViewController.m in Sources */,
 				3FF8EE861A1BB63000DA3A3D /* main.m in Sources */,

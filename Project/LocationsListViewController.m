@@ -12,6 +12,8 @@
 @property NSArray *content;
 @property NSString *currentlySelectedName;
 @property NSDictionary *dataToSend;
+@property DbManager *dbManager;
+@property NSArray *resultsContent;
 @end
 
 @implementation LocationsListViewController
@@ -28,24 +30,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.dbManager = [[DbManager alloc] initWithDatabaseFilename:@"Db.sqlite"];
     // Do any additional setup after loading the view.
     
     // Some dummy data. We'll need to populate it with database results when we know how to
     // TODO: have this load from the database
     // - Wes
-    
-//    self.content = @[
-//  
-//                     @{@"mainTitleKey": @"Foo",
-//                      @"secondaryTitleKey": @"Bar"},
-//                     
-//                     @{@"mainTitleKey": @"Donkey Kong Country 2",
-//                       @"secondaryTitleKey": @"It's a good game!"},
-//                     
-//                     @{@"mainTitleKey": @"Coffee",
-//                       @"secondaryTitleKey": @"Beans"}
-//                     
-//                     ];
     
     self.content = @[@{@"id": @1,
                        @"name": @"Foo",
@@ -64,6 +54,13 @@
                        @"latitude": @-20,
                        @"longitude": @55.227,
                        @"description": @"I need to stop eating it"}];
+    
+    // Need to load the data from the database
+    
+    [self loadData];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
 }
 
 - (void)didReceiveMemoryWarning
@@ -78,7 +75,9 @@
  * - Wes
  */
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return self.content.count;
+//    return self.content.count;
+    NSLog(@"%d", self.resultsContent.count);
+    return self.resultsContent.count;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -103,11 +102,25 @@
  * - Wes
  */
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"tableCell" ];
+//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"tableCell" ];
+//    
+//    NSDictionary *data = [self.content objectAtIndex:indexPath.row];
+//    cell.textLabel.text = [data objectForKey:@"name"];
+//    cell.detailTextLabel.text = [data objectForKey:@"description"];
+//    return cell;
     
-    NSDictionary *data = [self.content objectAtIndex:indexPath.row];
-    cell.textLabel.text = [data objectForKey:@"name"];
-    cell.detailTextLabel.text = [data objectForKey:@"description"];
+    // Dequeue the cell.
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"idCellRecord" forIndexPath:indexPath];
+    
+    NSInteger indexOfName = [self.dbManager.arrColumnNames indexOfObject:@"name"];
+    NSInteger indexOfLatitude = [self.dbManager.arrColumnNames indexOfObject:@"latitude"];
+    NSInteger indexOfLongitude = [self.dbManager.arrColumnNames indexOfObject:@"longitude"];
+    
+    // Set the loaded data to the appropriate cell labels.
+    cell.textLabel.text = [NSString stringWithFormat:@"%@", [[self.resultsContent objectAtIndex:indexPath.row] objectAtIndex:indexOfName]];
+    
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"Latitude:%@ Longitude:%@", [[self.resultsContent objectAtIndex:indexPath.row] objectAtIndex:indexOfLatitude], [[self.resultsContent objectAtIndex:indexPath.row] objectAtIndex:indexOfLongitude]];
+    
     return cell;
 }
 
@@ -126,5 +139,20 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+-(void)loadData{
+    // Form the query.
+    NSString *query = @"SELECT * FROM locations;";
+    
+    // Get the results.
+    if (self.resultsContent != nil) {
+        self.resultsContent = nil;
+    }
+    self.resultsContent = [[NSArray alloc] initWithArray:[self.dbManager loadDataFromDB:query]];
+    
+    // Reload the table view.
+    NSLog(@"Length of arrResults: %@", [self.dbManager arrColumnNames]);
+    [self.locationsTable reloadData];
+}
 
 @end

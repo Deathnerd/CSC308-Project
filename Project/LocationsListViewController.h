@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "DbManager.h"
 
 @interface LocationsListViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *locationsTable;
