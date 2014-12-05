@@ -10,10 +10,11 @@
 
 @interface LocationsListViewController ()
 @property NSArray *content;
-@property NSString *currentlySelectedName;
 @property NSDictionary *dataToSend;
 @property DbManager *dbManager;
 @property NSArray *resultsContent;
+
+
 @end
 
 @implementation LocationsListViewController
@@ -94,6 +95,14 @@
     // I don't remember specifically how to do the passing of data
     // - Wes
     //TODO: Send the dictionary entry to the next view
+    
+//    if([segue.identifier isEqualToString:@"pushToBuildingInfo"]) {
+//        BuildingInfoViewController *controller = (BuildingInfoViewController *)segue.destinationViewController;
+//    NSLog(@"Selected name: %@", self.selectedName);
+//        controller.name = self.selectedName;
+//    }
+    
+    
 }
 
 /*
@@ -110,7 +119,7 @@
 //    return cell;
     
     // Dequeue the cell.
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"idCellRecord" forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"tableCell" forIndexPath:indexPath];
     
     NSInteger indexOfName = [self.dbManager.arrColumnNames indexOfObject:@"name"];
     NSInteger indexOfLatitude = [self.dbManager.arrColumnNames indexOfObject:@"latitude"];
@@ -127,7 +136,21 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 //    NSDictionary *data = [];
 //    self.currentlySelectedName =
-    self.dataToSend = [self.content objectAtIndex:indexPath.row];
+    //self.dataToSend = [self.content objectAtIndex:indexPath.row];
+    
+    //Keep track of the building name we've selected
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    self.selectedName = cell.textLabel.text;
+    NSLog(@"GOT TEH SELECTED NAMEZ! %@", self.selectedName);
+            //[self performSegueWithIdentifier:@"pushToBuildingInfo" sender:sender];
+
+//    BuildingInfoViewController *controller = (BuildingInfoViewController *)segue.destinationViewController;
+//    NSLog(@"Selected name: %@", self.selectedName);
+//    controller.name = self.selectedName;
+    
+    ((BuildingInfoViewController *) self.presentedViewController).name = self.selectedName;
+    NSLog(@"Child: %@, Parent: %@", ((BuildingInfoViewController *) self.presentedViewController).name, self.selectedName);
+    
 }
 /*
 #pragma mark - Navigation

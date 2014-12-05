@@ -45,7 +45,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="rlG-G8-rZq" kind="push" id="XEL-p7-2i0"/>
+                                            <segue destination="rlG-G8-rZq" kind="push" identifier="pushToBuildingInfo" id="XEL-p7-2i0"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

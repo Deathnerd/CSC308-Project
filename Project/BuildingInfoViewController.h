@@ -8,10 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
+#import "DbManager.h"
+#import "LocationsListViewController.h"
 
 @interface BuildingInfoViewController : UIViewController
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 - (IBAction)openInMapsButton:(id)sender;
 @property (weak, nonatomic) IBOutlet UINavigationItem *titleBar;
+@property NSString *name;
 
 @end

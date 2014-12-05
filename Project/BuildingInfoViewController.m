@@ -12,6 +12,9 @@
 // Store the lat/long in here for the location of the currently selected building
 // - Wes
 @property NSDictionary *currentData;
+@property NSArray *resultsContent;
+@property DbManager *dbManager;
+
 @end
 
 @implementation BuildingInfoViewController
@@ -30,11 +33,11 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.currentData = @{
-                         @"longitude": @-111.5955,
-                         @"latitude": @33.225488,
-                         @"name": @"Denny's"
-                         };
+//    self.currentData = @{
+//                         @"longitude": @-111.5955,
+//                         @"latitude": @33.225488,
+//                         @"name": @"Denny's"
+//                         };
 }
 
 /*
@@ -45,7 +48,15 @@
  * - Wes
  */
 - (void)viewDidAppear:(BOOL)animated{
-    
+//    [self loadSelectedData:self.name];
+    NSLog(@"I appeared!");
+//    NSLog(@"Selected parent view name: %@", ((LocationsListViewController *) self.parentViewController).selectedName);
+//    [self loadSelectedData:((LocationsListViewController *) self.parentViewController).selectedName];
+    if(self.name == NULL || self.name == nil){
+        self.name = ((LocationsListViewController *) self.parentViewController).selectedName;
+    }
+    NSLog(@"Name! : %@", self.name);
+    [self loadSelectedData: self.name];
 }
 
 - (void)didReceiveMemoryWarning
@@ -83,4 +94,33 @@
     [item openInMapsWithLaunchOptions:nil];
     
 }
+
+-(void) loadSelectedData:(NSString *)name{
+    
+    // Form the query.
+    NSString *query = [[NSString alloc] initWithFormat:@"SELECT latitude, longitude FROM locations WHERE name = %@;", name];
+    NSLog(@"%@", query);
+    // Get the results.
+    if (self.resultsContent != nil) {
+        self.resultsContent = nil;
+    }
+    
+    self.resultsContent = [[NSArray alloc] initWithArray:[self.dbManager loadDataFromDB:query]];
+    NSLog(@"%@", self.resultsContent);
+    // Set the loaded data to the appropriate cell labels.
+//    cell.textLabel.text = [NSString stringWithFormat:@"%@", [[self.resultsContent objectAtIndex:indexPath.row] objectAtIndex:indexOfName]];
+//    
+//    cell.detailTextLabel.text = [NSString stringWithFormat:@"Latitude:%@ Longitude:%@", [[self.resultsContent objectAtIndex:indexPath.row] objectAtIndex:indexOfLatitude], [[self.resultsContent objectAtIndex:indexPath.row] objectAtIndex:indexOfLongitude]];
+    NSNumber *longitude = [[NSNumber alloc] initWithDouble:[[[self.resultsContent objectAtIndex:0] objectAtIndex:1] doubleValue]];
+    NSLog(@"%@", longitude);
+    NSNumber *latitude = [[NSNumber alloc] initWithDouble:[[[self.resultsContent objectAtIndex:0] objectAtIndex:0] doubleValue]];
+    NSLog(@"%@", latitude);
+    self.currentData = @{
+                         @"longitude": longitude,
+                         @"latitude": latitude,
+                         @"name": name
+                         };
+    
+}
+
 @end

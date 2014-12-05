@@ -180,6 +180,6 @@
  * Execute INSERT/DELETE/UPDATE statements
  */
 - (void) executableQuery:(NSString *)query{
-    [self runQuery: [query UTF8String] isQueryExecutable:YES]
+    [self runQuery: [query UTF8String] isQueryExecutable:YES];
 }
 @end
