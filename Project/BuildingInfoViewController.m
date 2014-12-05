@@ -52,9 +52,9 @@
     NSLog(@"I appeared!");
 //    NSLog(@"Selected parent view name: %@", ((LocationsListViewController *) self.parentViewController).selectedName);
 //    [self loadSelectedData:((LocationsListViewController *) self.parentViewController).selectedName];
-    if(self.name == NULL || self.name == nil){
-        self.name = ((LocationsListViewController *) self.parentViewController).selectedName;
-    }
+//    if(self.name == NULL || self.name == nil){
+//        self.name = ((LocationsListViewController *) self.parentViewController).selectedName;
+//    }
     NSLog(@"Name! : %@", self.name);
     [self loadSelectedData: self.name];
 }

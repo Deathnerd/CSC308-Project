@@ -91,18 +91,25 @@
  * shouldn't be too costly
  * - Wes
  */
-- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    // I don't remember specifically how to do the passing of data
-    // - Wes
-    //TODO: Send the dictionary entry to the next view
-    
+//- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+//    // I don't remember specifically how to do the passing of data
+//    // - Wes
+//    //TODO: Send the dictionary entry to the next view
+//    
 //    if([segue.identifier isEqualToString:@"pushToBuildingInfo"]) {
-//        BuildingInfoViewController *controller = (BuildingInfoViewController *)segue.destinationViewController;
+//        UINavigationController *navController = (UINavigationController *)segue.destinationViewController;
+//        BuildingInfoViewController *controller = (BuildingInfoViewController *)navController.topViewController;
 //    NSLog(@"Selected name: %@", self.selectedName);
 //        controller.name = self.selectedName;
 //    }
-    
-    
+//    
+//    
+//}
+
+- (void) passData{
+    BuildingInfoViewController *controller = [[BuildingInfoViewController alloc] init];
+    controller.name = self.selectedName;
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 /*
@@ -111,12 +118,6 @@
  * - Wes
  */
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"tableCell" ];
-//    
-//    NSDictionary *data = [self.content objectAtIndex:indexPath.row];
-//    cell.textLabel.text = [data objectForKey:@"name"];
-//    cell.detailTextLabel.text = [data objectForKey:@"description"];
-//    return cell;
     
     // Dequeue the cell.
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"tableCell" forIndexPath:indexPath];
@@ -142,14 +143,7 @@
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     self.selectedName = cell.textLabel.text;
     NSLog(@"GOT TEH SELECTED NAMEZ! %@", self.selectedName);
-            //[self performSegueWithIdentifier:@"pushToBuildingInfo" sender:sender];
-
-//    BuildingInfoViewController *controller = (BuildingInfoViewController *)segue.destinationViewController;
-//    NSLog(@"Selected name: %@", self.selectedName);
-//    controller.name = self.selectedName;
-    
-    ((BuildingInfoViewController *) self.presentedViewController).name = self.selectedName;
-    NSLog(@"Child: %@, Parent: %@", ((BuildingInfoViewController *) self.presentedViewController).name, self.selectedName);
+    [self passData];
     
 }
 /*
