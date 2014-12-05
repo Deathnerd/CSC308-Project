@@ -14,6 +14,8 @@
 @property NSDictionary *currentData;
 @property NSArray *resultsContent;
 @property DbManager *dbManager;
+@property NSNumber *longitude;
+@property NSNumber *latitude;
 
 @end
 
@@ -31,6 +33,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.dbManager = [[DbManager alloc] initWithDatabaseFilename:@"Db.sqlite"];
     // Do any additional setup after loading the view.
     
 //    self.currentData = @{
@@ -38,6 +41,23 @@
 //                         @"latitude": @33.225488,
 //                         @"name": @"Denny's"
 //                         };
+//    self.mapView.delegate = self;
+//    self.mapView.delegate = self.mapView;
+}
+
+- (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation
+{
+    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(userLocation.coordinate, 800, 800);
+    [self.mapView setRegion:[self.mapView regionThatFits:region] animated:YES];
+    
+    // Add an annotation
+    MKPointAnnotation *point = [[MKPointAnnotation alloc] init];
+    point.coordinate = userLocation.coordinate;
+    
+    point.title = @"Where am I?";
+    point.subtitle = @"I'm here!!!";
+    
+    [self.mapView addAnnotation:point];
 }
 
 /*
@@ -48,15 +68,17 @@
  * - Wes
  */
 - (void)viewDidAppear:(BOOL)animated{
-//    [self loadSelectedData:self.name];
     NSLog(@"I appeared!");
-//    NSLog(@"Selected parent view name: %@", ((LocationsListViewController *) self.parentViewController).selectedName);
-//    [self loadSelectedData:((LocationsListViewController *) self.parentViewController).selectedName];
-//    if(self.name == NULL || self.name == nil){
-//        self.name = ((LocationsListViewController *) self.parentViewController).selectedName;
-//    }
     NSLog(@"Name! : %@", self.name);
     [self loadSelectedData: self.name];
+    
+    CLLocationCoordinate2D location;
+    location.latitude = [[self.currentData objectForKey:@"latitude"] doubleValue];
+    location.longitude = [[self.currentData objectForKey:@"longitude"] doubleValue];
+    location.latitude = [self.latitude doubleValue];
+    location.longitude = [self.longitude doubleValue];
+
+    [self.mapView setCenterCoordinate:location animated:YES];
 }
 
 - (void)didReceiveMemoryWarning
@@ -90,7 +112,7 @@
     
     MKPlacemark *placemark = [[MKPlacemark alloc] initWithCoordinate:location addressDictionary:nil];
     MKMapItem *item = [[MKMapItem alloc] initWithPlacemark:placemark];
-    item.name = [self.currentData objectForKey:@"name"];
+    item.name = self.name;
     [item openInMapsWithLaunchOptions:nil];
     
 }
@@ -98,7 +120,7 @@
 -(void) loadSelectedData:(NSString *)name{
     
     // Form the query.
-    NSString *query = [[NSString alloc] initWithFormat:@"SELECT latitude, longitude FROM locations WHERE name = %@;", name];
+    NSString *query = [[NSString alloc] initWithFormat:@"SELECT latitude, longitude FROM locations WHERE name='%@';", name];
     NSLog(@"%@", query);
     // Get the results.
     if (self.resultsContent != nil) {
@@ -106,15 +128,14 @@
     }
     
     self.resultsContent = [[NSArray alloc] initWithArray:[self.dbManager loadDataFromDB:query]];
-    NSLog(@"%@", self.resultsContent);
-    // Set the loaded data to the appropriate cell labels.
-//    cell.textLabel.text = [NSString stringWithFormat:@"%@", [[self.resultsContent objectAtIndex:indexPath.row] objectAtIndex:indexOfName]];
-//    
-//    cell.detailTextLabel.text = [NSString stringWithFormat:@"Latitude:%@ Longitude:%@", [[self.resultsContent objectAtIndex:indexPath.row] objectAtIndex:indexOfLatitude], [[self.resultsContent objectAtIndex:indexPath.row] objectAtIndex:indexOfLongitude]];
+    NSLog(@"Results content: %@", self.resultsContent);
+
     NSNumber *longitude = [[NSNumber alloc] initWithDouble:[[[self.resultsContent objectAtIndex:0] objectAtIndex:1] doubleValue]];
     NSLog(@"%@", longitude);
     NSNumber *latitude = [[NSNumber alloc] initWithDouble:[[[self.resultsContent objectAtIndex:0] objectAtIndex:0] doubleValue]];
     NSLog(@"%@", latitude);
+    self.latitude = latitude;
+    self.longitude = longitude;
     self.currentData = @{
                          @"longitude": longitude,
                          @"latitude": latitude,
