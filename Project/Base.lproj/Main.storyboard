@@ -44,9 +44,6 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
-                                        <connections>
-                                            <segue destination="rlG-G8-rZq" kind="push" identifier="pushToBuildingInfo" id="XEL-p7-2i0"/>
-                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
@@ -70,6 +67,7 @@
                     </attributedString>
                     <connections>
                         <outlet property="locationsTable" destination="2QY-5y-OYM" id="S6i-uJ-5hq"/>
+                        <segue destination="rlG-G8-rZq" kind="push" identifier="pushToBuildingInfo" id="Vd1-De-hSD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>

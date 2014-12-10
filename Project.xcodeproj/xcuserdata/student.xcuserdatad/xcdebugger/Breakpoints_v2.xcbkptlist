@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Project/BuildingInfoViewController.m"
-            timestampString = "439509366.709379"
+            timestampString = "439935211.218258"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "109"
-            endingLineNumber = "109"
+            startingLineNumber = "140"
+            endingLineNumber = "140"
             landmarkName = "-openInMapsButton:"
             landmarkType = "5">
          </BreakpointContent>

@@ -62,6 +62,7 @@
 }
 
 - (void)viewDidAppear:(BOOL)animated {
+    [self loadData];
 }
 
 - (void)didReceiveMemoryWarning

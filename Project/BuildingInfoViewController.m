@@ -47,12 +47,17 @@
 
 - (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation
 {
+    CLLocationCoordinate2D location;
+    location.latitude = [self.latitude doubleValue];
+    location.longitude = [self.longitude doubleValue];
+    
     MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(userLocation.coordinate, 800, 800);
     [self.mapView setRegion:[self.mapView regionThatFits:region] animated:YES];
     
     // Add an annotation
     MKPointAnnotation *point = [[MKPointAnnotation alloc] init];
-    point.coordinate = userLocation.coordinate;
+//    point.coordinate = userLocation.coordinate;
+    point.coordinate = location;
     
     point.title = @"Where am I?";
     point.subtitle = @"I'm here!!!";
@@ -73,12 +78,38 @@
     [self loadSelectedData: self.name];
     
     CLLocationCoordinate2D location;
-    location.latitude = [[self.currentData objectForKey:@"latitude"] doubleValue];
-    location.longitude = [[self.currentData objectForKey:@"longitude"] doubleValue];
+//    location.latitude = [[self.currentData objectForKey:@"latitude"] doubleValue];
+//    location.longitude = [[self.currentData objectForKey:@"longitude"] doubleValue];
     location.latitude = [self.latitude doubleValue];
     location.longitude = [self.longitude doubleValue];
+    NSLog(@"Latitude at appear: %f", location.latitude);
+    // CLPlacemark *myPlacemark;
 
     [self.mapView setCenterCoordinate:location animated:YES];
+
+    CLLocation *loc = [[CLLocation alloc] initWithLatitude:location.latitude longitude:location.longitude];
+    // Make an address object given a latitude and longitude
+    // For use with placing a pin. Pretty stupid if you ask me
+    CLGeocoder *g = [CLGeocoder new];
+    [g reverseGeocodeLocation:loc completionHandler:^(NSArray *placemarks, NSError *error) {
+        CLPlacemark * myPlacemark = placemarks [0];
+        MKPlacemark *p = [[MKPlacemark alloc] initWithPlacemark:myPlacemark];
+        [self.mapView addAnnotation:p];
+    }];
+
+                     
+
+    
+    
+    
+//    MKPlacemark *point = [[MKPlacemark alloc] init];
+//    // point.coordinate = location;
+//    MKPlacemark *p = [[MKPlacemark alloc] initWithCoordinate:location addressDictionary:nil];
+    
+
+    /*
+    [self.mapView addAnnotation:point];
+     */
 }
 
 - (void)didReceiveMemoryWarning
