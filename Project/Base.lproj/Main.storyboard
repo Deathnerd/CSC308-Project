@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="l7y-i1-Khh">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="l7y-i1-Khh">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
     <scenes>
-        <!--Locations List View Controller - EKU Locator-->
+        <!--EKU Locator-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
                 <viewController id="vXZ-lx-hvc" customClass="LocationsListViewController" sceneMemberID="viewController">
@@ -18,10 +19,9 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="2QY-5y-OYM">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="tableCell" textLabel="RT4-XZ-bus" detailTextLabel="AhY-Pg-jaL" style="IBUITableViewCellStyleSubtitle" id="UPO-32-V82">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="tableCell" textLabel="RT4-XZ-bus" style="IBUITableViewCellStyleDefault" id="UPO-32-V82">
                                         <rect key="frame" x="0.0" y="86" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="UPO-32-V82" id="xti-EA-oaz">
@@ -31,14 +31,7 @@
                                                 <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Powell Student Center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="RT4-XZ-bus">
                                                     <rect key="frame" x="15" y="3" width="181" height="22"/>
                                                     <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Recreation and Food Court" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="AhY-Pg-jaL">
-                                                    <rect key="frame" x="15" y="25" width="152" height="15"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -54,30 +47,28 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="EKU Locator" id="0Y4-Vo-68A">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="xiA-cl-3EA"/>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="EKU Locator" id="0Y4-Vo-68A"/>
                     <attributedString key="userComments">
                         <fragment content="The search bar and the plus that goes to settings aren't priorities. Let's get it showing data and opening in Maps first">
                             <attributes>
-                                <font key="NSFont" metaFont="toolTip"/>
+                                <font key="NSFont" metaFont="smallSystem"/>
                                 <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
                             </attributes>
                         </fragment>
                     </attributedString>
                     <connections>
                         <outlet property="locationsTable" destination="2QY-5y-OYM" id="S6i-uJ-5hq"/>
-                        <segue destination="rlG-G8-rZq" kind="push" identifier="pushToBuildingInfo" id="Vd1-De-hSD"/>
+                        <segue destination="rlG-G8-rZq" kind="push" identifier="toBuildingInfoView" id="qfP-Ne-nFt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="720" y="-59"/>
+            <point key="canvasLocation" x="701" y="187"/>
         </scene>
-        <!--Building Info View Controller - Building Name-->
+        <!--Building Name-->
         <scene sceneID="7R2-gy-03J">
             <objects>
-                <viewController id="rlG-G8-rZq" customClass="BuildingInfoViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="BuildingInfoVC" id="rlG-G8-rZq" customClass="BuildingInfoViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="H1O-BG-s5h"/>
                         <viewControllerLayoutGuide type="bottom" id="FKM-7u-3jA"/>
@@ -88,14 +79,12 @@
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3wi-nU-tLh">
                                 <rect key="frame" x="20" y="92" width="280" height="280"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <connections>
                                     <outlet property="delegate" destination="rlG-G8-rZq" id="kid-fT-Txo"/>
                                 </connections>
                             </mapView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VVn-MA-v9S">
                                 <rect key="frame" x="112" y="397" width="97" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Open in Maps">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -116,7 +105,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fy9-0a-9Mb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1138" y="-59"/>
+            <point key="canvasLocation" x="1203" y="187"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="NgH-Kb-Kdk">

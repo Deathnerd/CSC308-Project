@@ -13,8 +13,6 @@
 @property NSDictionary *dataToSend;
 @property DbManager *dbManager;
 @property NSArray *resultsContent;
-
-
 @end
 
 @implementation LocationsListViewController
@@ -31,36 +29,19 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    // Instantiate the database
     self.dbManager = [[DbManager alloc] initWithDatabaseFilename:@"Db.sqlite"];
     // Do any additional setup after loading the view.
     
-    // Some dummy data. We'll need to populate it with database results when we know how to
-    // TODO: have this load from the database
-    // - Wes
-    
-    self.content = @[@{@"id": @1,
-                       @"name": @"Foo",
-                       @"latitude": @-37.7563,
-                       @"longitude": @20.227,
-                       @"description": @"Bar"},
-                     
-                     @{@"id": @2,
-                       @"name": @"Donkey Kong 64",
-                       @"latitude": @100.7563,
-                       @"longitude": @1.227,
-                       @"description": @"is a flawed game but I still like it"},
-                     
-                     @{@"id": @3,
-                       @"name": @"Ice cream",
-                       @"latitude": @-20,
-                       @"longitude": @55.227,
-                       @"description": @"I need to stop eating it"}];
-    
-    // Need to load the data from the database
-    
+    /*
+     * Load the data from the database to populate the table
+     */
     [self loadData];
 }
 
+/*
+ * When the view appears, we need to reload the data and refresh the table
+ */
 - (void)viewDidAppear:(BOOL)animated {
     [self loadData];
 }
@@ -68,7 +49,6 @@
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 /*
@@ -77,40 +57,25 @@
  * - Wes
  */
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-//    return self.content.count;
-    NSLog(@"%d", self.resultsContent.count);
     return self.resultsContent.count;
 }
 
+/*
+ * We only need one section
+ */
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
 }
 
 /*
- * Take care of things like passing data to the next view. We really should only need the building name because we 
- * can then just do a query to search for the other data from the database. A simple CRUD operation like that 
- * shouldn't be too costly
- * - Wes
+ * This takes care of passing the data from this view controller to the Building Info View Controller.
+ * It also sets the title of the nav bar in the next view to the selected building's name
  */
-//- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-//    // I don't remember specifically how to do the passing of data
-//    // - Wes
-//    //TODO: Send the dictionary entry to the next view
-//    
-//    if([segue.identifier isEqualToString:@"pushToBuildingInfo"]) {
-//        UINavigationController *navController = (UINavigationController *)segue.destinationViewController;
-//        BuildingInfoViewController *controller = (BuildingInfoViewController *)navController.topViewController;
-//    NSLog(@"Selected name: %@", self.selectedName);
-//        controller.name = self.selectedName;
-//    }
-//    
-//    
-//}
-
 - (void) passData{
-    BuildingInfoViewController *controller = [[BuildingInfoViewController alloc] init];
-    controller.name = self.selectedName;
-    [self.navigationController pushViewController:controller animated:YES];
+    BuildingInfoViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"BuildingInfoVC"];
+    viewController.name = self.selectedName;  // Pass the name to the next view
+    viewController.navigationItem.title = self.selectedName;  // Set the nav bar title to the selected building name
+    [self.navigationController pushViewController:viewController animated:YES];  // Do the segue
 }
 
 /*
@@ -122,28 +87,22 @@
     
     // Dequeue the cell.
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"tableCell" forIndexPath:indexPath];
-    
-    NSInteger indexOfName = [self.dbManager.arrColumnNames indexOfObject:@"name"];
-    NSInteger indexOfLatitude = [self.dbManager.arrColumnNames indexOfObject:@"latitude"];
-    NSInteger indexOfLongitude = [self.dbManager.arrColumnNames indexOfObject:@"longitude"];
+    NSInteger indexOfName = [self.dbManager.arrColumnNames indexOfObject:@"name"];  // Get the index of the name in the database results
     
     // Set the loaded data to the appropriate cell labels.
     cell.textLabel.text = [NSString stringWithFormat:@"%@", [[self.resultsContent objectAtIndex:indexPath.row] objectAtIndex:indexOfName]];
     
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"Latitude:%@ Longitude:%@", [[self.resultsContent objectAtIndex:indexPath.row] objectAtIndex:indexOfLatitude], [[self.resultsContent objectAtIndex:indexPath.row] objectAtIndex:indexOfLongitude]];
-    
     return cell;
 }
 
+/*
+ * When we select a table cell, pass the data to the Building Info View Controller
+ * so that it can set up the data it needs to display the map
+ */
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-//    NSDictionary *data = [];
-//    self.currentlySelectedName =
-    //self.dataToSend = [self.content objectAtIndex:indexPath.row];
-    
     //Keep track of the building name we've selected
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     self.selectedName = cell.textLabel.text;
-    NSLog(@"GOT TEH SELECTED NAMEZ! %@", self.selectedName);
     [self passData];
     
 }
@@ -158,6 +117,9 @@
 }
 */
 
+/*
+ * Load the data from the database to use to populate the table
+ */
 -(void)loadData{
     // Form the query.
     NSString *query = @"SELECT * FROM locations;";
@@ -169,7 +131,6 @@
     self.resultsContent = [[NSArray alloc] initWithArray:[self.dbManager loadDataFromDB:query]];
     
     // Reload the table view.
-    NSLog(@"Length of arrResults: %@", [self.dbManager arrColumnNames]);
     [self.locationsTable reloadData];
 }
 

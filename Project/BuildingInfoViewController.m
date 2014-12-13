@@ -11,12 +11,11 @@
 @interface BuildingInfoViewController ()
 // Store the lat/long in here for the location of the currently selected building
 // - Wes
-@property NSDictionary *currentData;
 @property NSArray *resultsContent;
 @property DbManager *dbManager;
 @property NSNumber *longitude;
 @property NSNumber *latitude;
-
+@property NSString *buildingName;
 @end
 
 @implementation BuildingInfoViewController
@@ -33,83 +32,45 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    // Instantiate the database object
     self.dbManager = [[DbManager alloc] initWithDatabaseFilename:@"Db.sqlite"];
     // Do any additional setup after loading the view.
-    
-//    self.currentData = @{
-//                         @"longitude": @-111.5955,
-//                         @"latitude": @33.225488,
-//                         @"name": @"Denny's"
-//                         };
-//    self.mapView.delegate = self;
-//    self.mapView.delegate = self.mapView;
-}
-
-- (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation
-{
-    CLLocationCoordinate2D location;
-    location.latitude = [self.latitude doubleValue];
-    location.longitude = [self.longitude doubleValue];
-    
-    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(userLocation.coordinate, 800, 800);
-    [self.mapView setRegion:[self.mapView regionThatFits:region] animated:YES];
-    
-    // Add an annotation
-    MKPointAnnotation *point = [[MKPointAnnotation alloc] init];
-//    point.coordinate = userLocation.coordinate;
-    point.coordinate = location;
-    
-    point.title = @"Where am I?";
-    point.subtitle = @"I'm here!!!";
-    
-    [self.mapView addAnnotation:point];
 }
 
 /*
  * This method is what we should use to do things when the view is shown (duh). 
  * This'll take care of almost all of our actions such as setting the map coordinates and laying down a pin, etc.
  * Also remember to set the header text to the name of the location
- * See more here: http://www.raywenderlich.com/21365/introduction-to-mapkit-in-ios-6-tutorial
  * - Wes
  */
 - (void)viewDidAppear:(BOOL)animated{
-    NSLog(@"I appeared!");
-    NSLog(@"Name! : %@", self.name);
+    self.navigationItem.title = self.name;  // Set the header name
     [self loadSelectedData: self.name];
     
+
     CLLocationCoordinate2D location;
-//    location.latitude = [[self.currentData objectForKey:@"latitude"] doubleValue];
-//    location.longitude = [[self.currentData objectForKey:@"longitude"] doubleValue];
+
     location.latitude = [self.latitude doubleValue];
     location.longitude = [self.longitude doubleValue];
-    NSLog(@"Latitude at appear: %f", location.latitude);
-    // CLPlacemark *myPlacemark;
-
-    [self.mapView setCenterCoordinate:location animated:YES];
-
+    
     CLLocation *loc = [[CLLocation alloc] initWithLatitude:location.latitude longitude:location.longitude];
     // Make an address object given a latitude and longitude
     // For use with placing a pin. Pretty stupid if you ask me
     CLGeocoder *g = [CLGeocoder new];
     [g reverseGeocodeLocation:loc completionHandler:^(NSArray *placemarks, NSError *error) {
         CLPlacemark * myPlacemark = placemarks [0];
+        
+        MKCoordinateRegion mapRegion;
+        mapRegion.center.latitude = myPlacemark.location.coordinate.latitude;
+        mapRegion.center.longitude = myPlacemark.location.coordinate.longitude;
+        mapRegion.span.longitudeDelta = 0.008;
+        mapRegion.span.latitudeDelta = 0.008;
+        [self.mapView setRegion:mapRegion animated:YES];    // redraw the map
+
         MKPlacemark *p = [[MKPlacemark alloc] initWithPlacemark:myPlacemark];
         [self.mapView addAnnotation:p];
     }];
-
-                     
-
     
-    
-    
-//    MKPlacemark *point = [[MKPlacemark alloc] init];
-//    // point.coordinate = location;
-//    MKPlacemark *p = [[MKPlacemark alloc] initWithCoordinate:location addressDictionary:nil];
-    
-
-    /*
-    [self.mapView addAnnotation:point];
-     */
 }
 
 - (void)didReceiveMemoryWarning
@@ -135,44 +96,31 @@
  * - Wes
  */
 - (IBAction)openInMapsButton:(id)sender {
-    
-    CLLocationCoordinate2D location = CLLocationCoordinate2DMake(
-                                                                 [[self.currentData objectForKey:@"longitude"] doubleValue],
-                                                                 [[self.currentData objectForKey:@"latitude"] doubleValue]
-                                                                 );
-    
-    MKPlacemark *placemark = [[MKPlacemark alloc] initWithCoordinate:location addressDictionary:nil];
-    MKMapItem *item = [[MKMapItem alloc] initWithPlacemark:placemark];
-    item.name = self.name;
-    [item openInMapsWithLaunchOptions:nil];
-    
+    /*
+     * Couldn't get the proper way working (using CLLocation2dCoordinates and junk), so I hacked together
+     * a little trick: iOS and Android intercept specific urls to interact with apps. One of them is 
+     * map links. Android will open Google Maps urls in Google Maps and iOS will do the same for Apple Maps
+     * and Apple Maps urls. A dirty hack, but eh it works.
+     */
+    NSString *link = [NSString stringWithFormat: @"http://maps.apple.com/maps?q=%@,%@", self.latitude, self.longitude];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:link]];
 }
 
+/*
+ * Loads data about the building based on the name and stores it in the self.currentData directory
+ */
 -(void) loadSelectedData:(NSString *)name{
-    
     // Form the query.
     NSString *query = [[NSString alloc] initWithFormat:@"SELECT latitude, longitude FROM locations WHERE name='%@';", name];
-    NSLog(@"%@", query);
     // Get the results.
     if (self.resultsContent != nil) {
         self.resultsContent = nil;
     }
     
     self.resultsContent = [[NSArray alloc] initWithArray:[self.dbManager loadDataFromDB:query]];
-    NSLog(@"Results content: %@", self.resultsContent);
-
-    NSNumber *longitude = [[NSNumber alloc] initWithDouble:[[[self.resultsContent objectAtIndex:0] objectAtIndex:1] doubleValue]];
-    NSLog(@"%@", longitude);
-    NSNumber *latitude = [[NSNumber alloc] initWithDouble:[[[self.resultsContent objectAtIndex:0] objectAtIndex:0] doubleValue]];
-    NSLog(@"%@", latitude);
-    self.latitude = latitude;
-    self.longitude = longitude;
-    self.currentData = @{
-                         @"longitude": longitude,
-                         @"latitude": latitude,
-                         @"name": name
-                         };
     
+    self.longitude = [[NSNumber alloc] initWithDouble:[[[self.resultsContent objectAtIndex:0] objectAtIndex:1] doubleValue]];
+    self.latitude = [[NSNumber alloc] initWithDouble:[[[self.resultsContent objectAtIndex:0] objectAtIndex:0] doubleValue]];
 }
 
 @end
